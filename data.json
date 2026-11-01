@@ -1,0 +1,71 @@
+{
+  "usuarios": [
+    { "id": 1, "usuario": "admin", "password": "Sentry#2026", "rol": "admin", "activo": true, "nombre": "Andrea Rivas", "email": "admin@networksentry.ai", "telefono": "+1 305 555 0101", "cargo": "Administrador del Sistema", "empresa": "NetworkSentry AI", "ciudad": "Miami, FL", "bio": "Responsable de la plataforma, usuarios, canales de alerta y reglas de automatización.", "foto": "", "banner": "", "social": { "telegram": "@nsai_admin", "instagram": "", "linkedin": "https://linkedin.com/in/andrea-rivas", "facebook": "", "whatsapp": "+1 305 555 0101", "web": "https://networksentry.ai" }, "sitiosIds": [], "ultimoAcceso": "—" },
+    { "id": 2, "usuario": "tecnico1", "password": "Soc#Tecnico26", "rol": "operador", "activo": true, "nombre": "Carlos Méndez", "email": "carlos@networksentry.ai", "telefono": "+1 305 555 0142", "cargo": "Técnico de Redes / Oper SOC", "empresa": "NetworkSentry AI", "ciudad": "Miami, FL", "bio": "Atiende fallas en campo y ejecuta las autocorrecciones sugeridas por la IA.", "foto": "", "banner": "", "social": { "telegram": "@carlos_soc", "instagram": "", "linkedin": "", "facebook": "", "whatsapp": "+1 305 555 0142", "web": "" }, "sitiosIds": [], "ultimoAcceso": "—" },
+    { "id": 3, "usuario": "cliente1", "password": "Cliente#2026", "rol": "cliente", "activo": true, "nombre": "Luis Robles", "email": "luis.robles@mail.com", "telefono": "+1 786 555 0188", "cargo": "Propietario", "empresa": "Residencia Los Robles", "ciudad": "Miami, FL", "bio": "", "foto": "", "banner": "", "social": { "telegram": "", "instagram": "", "linkedin": "", "facebook": "", "whatsapp": "", "web": "" }, "sitiosIds": [1], "ultimoAcceso": "—" },
+    { "id": 4, "usuario": "cliente2", "password": "Empresa#2026", "rol": "cliente", "activo": true, "nombre": "María Andina", "email": "gerencia@andina.com", "telefono": "+1 305 555 0170", "cargo": "Gerente General", "empresa": "Corporativo Andina S.A.", "ciudad": "Miami, FL", "bio": "", "foto": "", "banner": "", "social": { "telegram": "", "instagram": "", "linkedin": "", "facebook": "", "whatsapp": "", "web": "" }, "sitiosIds": [2, 3], "ultimoAcceso": "—" }
+  ],
+  "sitios": [
+    { "id": 1, "nombre": "Residencia Los Robles", "tipo": "Casa", "direccion": "Calle 8 #124, Miami, FL",
+      "zonas": [
+        { "id": 1, "nombre": "Cocina" }, { "id": 2, "nombre": "Sala" }, { "id": 3, "nombre": "Cuarto 1" },
+        { "id": 4, "nombre": "Cuarto 2" }, { "id": 5, "nombre": "Baño principal" }, { "id": 6, "nombre": "Garaje" }, { "id": 7, "nombre": "Patio" }
+      ] },
+    { "id": 2, "nombre": "Corporativo Andina S.A.", "tipo": "Empresa", "direccion": "Av. Brickell 1500, Miami, FL",
+      "zonas": [
+        { "id": 8, "nombre": "Recepción" }, { "id": 9, "nombre": "Oficinas" }, { "id": 10, "nombre": "Zona de estar" },
+        { "id": 11, "nombre": "Garaje" }, { "id": 12, "nombre": "Galpón" }, { "id": 13, "nombre": "Sala de servidores" }
+      ] },
+    { "id": 3, "nombre": "Minimarket La Esquina", "tipo": "Negocio", "direccion": "Calle 27 NW #3050, Miami, FL",
+      "zonas": [ { "id": 14, "nombre": "Salón de ventas" }, { "id": 15, "nombre": "Caja" }, { "id": 16, "nombre": "Bodega" } ] }
+  ],
+  "dispositivos": [
+    { "id": 1, "sitioId": 1, "zonaId": 2, "nombre": "DVR Casa 8CH", "ip": "192.168.0.10", "tipo": "DVR", "estado": "Warning", "usoDiscoPorcentaje": 93, "capacidadTB": 2, "gbDia": 40, "latenciaMs": 4, "firmware": "v4.2.1", "ultimaConexion": "2026-11-01 08:55:10" },
+    { "id": 2, "sitioId": 1, "zonaId": 1, "nombre": "Cámara Cocina", "ip": "192.168.0.21", "tipo": "Cámara IP", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 12, "firmware": "v2.8.0", "ultimaConexion": "2026-11-01 08:59:41" },
+    { "id": 3, "sitioId": 1, "zonaId": 2, "nombre": "Cámara Sala", "ip": "192.168.0.22", "tipo": "Cámara IP", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 10, "firmware": "v2.8.0", "ultimaConexion": "2026-11-01 08:59:44" },
+    { "id": 4, "sitioId": 1, "zonaId": 3, "nombre": "Cámara Cuarto 1", "ip": "192.168.0.23", "tipo": "Cámara IP", "estado": "Offline", "usoDiscoPorcentaje": null, "latenciaMs": null, "firmware": "v2.7.4", "ultimaConexion": "2026-11-01 03:12:07" },
+    { "id": 5, "sitioId": 1, "zonaId": 6, "nombre": "Cámara Garaje", "ip": "192.168.0.24", "tipo": "Cámara IP", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 14, "firmware": "v2.8.0", "ultimaConexion": "2026-11-01 08:59:50" },
+    { "id": 6, "sitioId": 1, "zonaId": 7, "nombre": "Cámara Patio", "ip": "192.168.0.25", "tipo": "Cámara IP", "estado": "Mantenimiento", "usoDiscoPorcentaje": null, "latenciaMs": null, "firmware": "v2.8.0", "ultimaConexion": "2026-10-31 18:20:00" },
+    { "id": 7, "sitioId": 1, "zonaId": 2, "nombre": "Router Casa", "ip": "192.168.0.1", "tipo": "Router", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 1, "firmware": "v15.1", "ultimaConexion": "2026-11-01 09:00:00" },
+    { "id": 8, "sitioId": 1, "zonaId": 2, "nombre": "TV Sala", "ip": "192.168.0.40", "tipo": "TV", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 31, "firmware": "v7.0.3", "ultimaConexion": "2026-11-01 08:58:22" },
+
+    { "id": 9, "sitioId": 2, "zonaId": 13, "nombre": "NVR Principal 16CH", "ip": "10.10.0.10", "tipo": "NVR", "estado": "Online", "usoDiscoPorcentaje": 71, "capacidadTB": 8, "gbDia": 120, "latenciaMs": 3, "firmware": "v5.0.2", "ultimaConexion": "2026-11-01 08:59:58" },
+    { "id": 10, "sitioId": 2, "zonaId": 8, "nombre": "Cámara Recepción", "ip": "10.10.0.21", "tipo": "Cámara IP", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 9, "firmware": "v3.1.0", "ultimaConexion": "2026-11-01 08:59:40" },
+    { "id": 11, "sitioId": 2, "zonaId": 9, "nombre": "Cámara Oficinas", "ip": "10.10.0.22", "tipo": "Cámara IP", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 11, "firmware": "v3.1.0", "ultimaConexion": "2026-11-01 08:59:41" },
+    { "id": 12, "sitioId": 2, "zonaId": 12, "nombre": "Cámara Galpón", "ip": "10.10.0.23", "tipo": "Cámara IP", "estado": "Warning", "usoDiscoPorcentaje": null, "latenciaMs": 180, "firmware": "v3.0.7", "ultimaConexion": "2026-11-01 08:57:12" },
+    { "id": 13, "sitioId": 2, "zonaId": 11, "nombre": "Cámara Garaje", "ip": "10.10.0.24", "tipo": "Cámara IP", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 13, "firmware": "v3.1.0", "ultimaConexion": "2026-11-01 08:59:46" },
+    { "id": 14, "sitioId": 2, "zonaId": 13, "nombre": "Switch PoE Core", "ip": "10.10.0.2", "tipo": "Switch", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 1, "firmware": "v2.4.8", "ultimaConexion": "2026-11-01 09:00:00" },
+    { "id": 15, "sitioId": 2, "zonaId": 13, "nombre": "Router Corporativo", "ip": "10.10.0.1", "tipo": "Router", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 1, "firmware": "v17.2", "ultimaConexion": "2026-11-01 09:00:00" },
+    { "id": 16, "sitioId": 2, "zonaId": 10, "nombre": "TV Zona de estar", "ip": "10.10.0.40", "tipo": "TV", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 26, "firmware": "v7.0.3", "ultimaConexion": "2026-11-01 08:58:30" },
+    { "id": 17, "sitioId": 2, "zonaId": 12, "nombre": "DVR Galpón", "ip": "10.10.0.11", "tipo": "DVR", "estado": "Warning", "usoDiscoPorcentaje": 96, "capacidadTB": 4, "gbDia": 70, "latenciaMs": 5, "firmware": "v4.1.9", "ultimaConexion": "2026-11-01 08:59:20" },
+
+    { "id": 18, "sitioId": 3, "zonaId": 16, "nombre": "DVR Tienda 8CH", "ip": "172.16.5.10", "tipo": "DVR", "estado": "Online", "usoDiscoPorcentaje": 64, "capacidadTB": 2, "gbDia": 35, "latenciaMs": 6, "firmware": "v4.1.9", "ultimaConexion": "2026-11-01 08:59:55" },
+    { "id": 19, "sitioId": 3, "zonaId": 14, "nombre": "Cámara Salón", "ip": "172.16.5.21", "tipo": "Cámara IP", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 15, "firmware": "v2.8.0", "ultimaConexion": "2026-11-01 08:59:48" },
+    { "id": 20, "sitioId": 3, "zonaId": 15, "nombre": "Cámara Caja", "ip": "172.16.5.22", "tipo": "Cámara IP", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 12, "firmware": "v2.8.0", "ultimaConexion": "2026-11-01 08:59:49" },
+    { "id": 21, "sitioId": 3, "zonaId": 16, "nombre": "Router Tienda", "ip": "172.16.5.1", "tipo": "Router", "estado": "Online", "usoDiscoPorcentaje": null, "latenciaMs": 2, "firmware": "v15.1", "ultimaConexion": "2026-11-01 09:00:00" }
+  ],
+  "logsIA": [
+    { "id": 101, "dispositivoId": 1, "fecha": "2026-11-01 08:40:12", "evento": "Disco al 93%: riesgo de sobrescritura de grabaciones", "severidad": "Critica", "scriptSugerido": "find /mnt/hdd/rec -type f -mtime +30 -delete" },
+    { "id": 102, "dispositivoId": 4, "fecha": "2026-11-01 03:15:30", "evento": "Sin respuesta ICMP durante 5 min. Posible falla PoE", "severidad": "Alta", "scriptSugerido": "ping -c 4 192.168.0.23 && arp -a | grep 192.168.0.23" },
+    { "id": 103, "dispositivoId": 12, "fecha": "2026-11-01 07:20:05", "evento": "Latencia de 180 ms, superior al promedio de la red", "severidad": "Media", "scriptSugerido": "mtr -r -c 10 10.10.0.23" },
+    { "id": 104, "dispositivoId": 17, "fecha": "2026-11-01 08:10:44", "evento": "Disco al 96%: grabaciones del galpón en riesgo", "severidad": "Critica", "scriptSugerido": "find /mnt/hdd/rec -type f -mtime +30 -delete" },
+    { "id": 105, "dispositivoId": 15, "fecha": "2026-11-01 06:00:00", "evento": "Auditoría nocturna completada sin anomalías", "severidad": "Baja", "scriptSugerido": "" },
+    { "id": 106, "dispositivoId": 18, "fecha": "2026-11-01 06:05:00", "evento": "Auditoría nocturna completada sin anomalías", "severidad": "Baja", "scriptSugerido": "" },
+    { "id": 107, "dispositivoId": 6, "fecha": "2026-10-31 18:20:00", "evento": "Estado cambiado de Offline a Mantenimiento por tecnico1", "severidad": "Baja", "scriptSugerido": "" }
+  ],
+  "incidencias": [
+    { "id": 1, "sitioId": 1, "dispositivoId": 4, "fecha": "2026-11-01 03:40:00", "titulo": "Cámara Cuarto 1 sin energía PoE", "descripcion": "Se detecta puerto PoE caído en el switch. Pendiente visita técnica para revisar el cableado.", "estado": "Abierta", "autor": "tecnico1" },
+    { "id": 2, "sitioId": 1, "dispositivoId": 6, "fecha": "2026-10-31 18:25:00", "titulo": "Cámara Patio en mantenimiento", "descripcion": "Se retira la cámara para limpieza de lente y reemplazo del conector RJ45 por humedad.", "estado": "Abierta", "autor": "tecnico1" },
+    { "id": 3, "sitioId": 2, "dispositivoId": 13, "fecha": "2026-10-31 17:20:00", "titulo": "Reajuste de ángulo en cámara del garaje", "descripcion": "Se reorientó la cámara y se verificó la grabación continua en el NVR durante 30 minutos.", "estado": "Resuelta", "autor": "tecnico1" }
+  ],
+  "auditoria": [],
+  "config": {
+    "umbralDisco": 90,
+    "canales": { "telegram": { "activo": false, "chatId": "" }, "correo": { "activo": false, "destino": "" } },
+    "reglas": [
+      { "id": 1, "nombre": "Alerta de disco crítico", "descripcion": "Notifica cuando un DVR/NVR supera el umbral global de uso de disco.", "valor": null, "unidad": "", "activa": true, "estado": "Aprobada" },
+      { "id": 2, "nombre": "Reinicio automático de cámara", "descripcion": "Reinicia el puerto PoE de una cámara sin respuesta tras el tiempo indicado.", "valor": 5, "unidad": "min", "activa": false, "estado": "Pendiente" },
+      { "id": 3, "nombre": "Escalamiento a técnico SOC", "descripcion": "Escala la alarma al técnico si sigue activa pasado el tiempo indicado.", "valor": 15, "unidad": "min", "activa": true, "estado": "Aprobada" }
+    ]
+  }
+}

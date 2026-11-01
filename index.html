@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NetworkSentry AI | Centro de control multisitio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ NAVBAR FIJA (translúcida) ============ -->
+  <header class="topbar" id="topbar">
+    <a href="#" class="logo" id="logoHome"><span class="logo-icon">⛨</span> Network<strong>Sentry</strong> <em>AI</em></a>
+    <nav class="mainnav" id="mainNav" hidden>
+      <button data-nav="hub" id="navHub">🏢 Sitios</button>
+      <button data-nav="perfil" id="navPerfil">👤 Mi perfil</button>
+      <button data-nav="admin" id="navAdmin" hidden>⚙️ Administración</button>
+    </nav>
+    <div class="topbar-right">
+      <div class="agent-status" id="agentStatus"><span class="dot"></span> Agente IA: <b>Activo</b></div>
+      <button class="userchip" id="userChip" data-nav="perfil" title="Mi perfil" hidden>
+        <span class="avatar sm" id="chipAvatar"></span>
+        <span class="chip-txt"><b id="chipName"></b><small id="chipRole"></small></span>
+      </button>
+      <button class="btn btn-outline" id="btnSession">🔒 Iniciar sesión</button>
+    </div>
+  </header>
+
+  <!-- ============ LANDING PÚBLICA ============ -->
+  <section id="viewLanding" class="view">
+    <div class="hero">
+      <p class="tag">// SOC · Gestión multisitio · IA</p>
+      <h1>Monitoreo inteligente de <span>redes, DVRs y cámaras IP</span></h1>
+      <p class="sub">Plataforma profesional para administrar casas, empresas y negocios: estado de equipos, cámaras en vivo, grabaciones, SLA y un agente de IA que diagnostica y sugiere la remediación.</p>
+      <div class="cta">
+        <button class="btn btn-primary" data-login="cliente">👤 Portal Cliente</button>
+        <button class="btn btn-outline" data-login="personal">🛡️ Portal Técnico / Admin</button>
+      </div>
+    </div>
+    <div class="container">
+      <div class="portal-grid">
+        <article class="portal">
+          <div class="portal-ico">👁️</div><h3>Portal Cliente</h3>
+          <p class="muted">Para propietarios y directivos. Consulte el estado de sus equipos, cámaras en vivo y grabaciones guardadas, en modo solo lectura.</p>
+          <button class="btn btn-primary" data-login="cliente">Ingresar como cliente</button>
+        </article>
+        <article class="portal portal-staff">
+          <div class="portal-ico">🛡️</div><h3>Portal Técnico / Administración</h3>
+          <p class="muted">Para el Super Admin y los técnicos SOC. Gestión de sitios, dispositivos, scripts de autocorrección, incidencias y usuarios.</p>
+          <button class="btn btn-primary" data-login="personal">Ingresar como personal</button>
+        </article>
+      </div>
+
+      <div class="panel">
+        <h2>Roles y permisos del sistema</h2>
+        <div class="table-wrap">
+          <table class="roles-table">
+            <thead><tr><th>Capacidad</th><th>👑 Super Admin</th><th>🛠️ Técnico SOC</th><th>👁️ Cliente</th></tr></thead>
+            <tbody>
+              <tr><td>Ver estado, métricas y SLA</td><td class="y">✔</td><td class="y">✔</td><td class="y">✔ (sus sitios)</td></tr>
+              <tr><td>Cámaras en vivo y grabaciones</td><td class="y">✔</td><td class="y">✔</td><td class="y">✔</td></tr>
+              <tr><td>Ver logs y terminal IA</td><td class="y">✔</td><td class="y">✔</td><td class="n">✖</td></tr>
+              <tr><td>Ejecutar scripts de autocorrección</td><td class="y">✔</td><td class="y">✔</td><td class="n">✖</td></tr>
+              <tr><td>Cambiar estado a Mantenimiento y documentar incidencias</td><td class="y">✔</td><td class="y">✔</td><td class="n">✖</td></tr>
+              <tr><td>Agregar / editar / eliminar dispositivos, zonas y sitios</td><td class="y">✔</td><td class="n">✖</td><td class="n">✖</td></tr>
+              <tr><td>Canales de alerta, reglas, usuarios y auditoría</td><td class="y">✔</td><td class="n">✖</td><td class="n">✖</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="features">
+        <article class="feature"><b>📹 Video en vivo</b><span>Mosaico por zona con indicador REC y pantalla completa.</span></article>
+        <article class="feature"><b>🎞️ Grabaciones</b><span>Historial por cámara/DVR con reproductor integrado.</span></article>
+        <article class="feature"><b>📈 SLA 24 h</b><span>Gráficas de disponibilidad por equipo y por sitio.</span></article>
+        <article class="feature"><b>🤖 Agente IA</b><span>Diagnóstico, terminal y scripts de autocorrección.</span></article>
+        <article class="feature"><b>🏠 Zonas</b><span>Cocina, cuartos, oficinas, galpones, garajes y más.</span></article>
+        <article class="feature"><b>🔐 Seguridad</b><span>Roles, bloqueo por intentos, inactividad y auditoría.</span></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HUB DE SITIOS ============ -->
+  <section id="viewHub" class="view" hidden>
+    <div class="container">
+      <div class="section-head">
+        <div><p class="tag" id="hubWelcome"></p><h2 id="hubTitle">Sitios gestionados</h2></div>
+        <button class="btn btn-primary" id="btnNewSite" data-act="nuevositio">+ Nuevo sitio</button>
+      </div>
+      <div class="kpis" id="hubKpis"></div>
+      <div class="toolbar">
+        <input type="search" id="hubFiltro" placeholder="Buscar por sitio, dirección, equipo o IP...">
+        <select id="hubTipo" class="select-auto">
+          <option value="todos">Todos los sitios</option>
+          <option value="criticos">⚠ Con alertas críticas</option>
+          <option value="Casa">🏠 Casas</option>
+          <option value="Empresa">🏢 Empresas</option>
+          <option value="Negocio">🏪 Negocios</option>
+        </select>
+      </div>
+      <div class="sites" id="siteGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ PANEL DE SITIO ============ -->
+  <section id="viewSite" class="view" hidden>
+    <div class="container">
+      <div class="site-head">
+        <div>
+          <button class="btn btn-outline btn-sm" data-act="volver">← Todos los sitios</button>
+          <h1 id="siteName"></h1>
+          <p class="muted" id="siteMeta"></p>
+        </div>
+        <button class="btn btn-primary" id="btnAuditar" data-act="auditar">🤖 Auditoría IA del sitio</button>
+      </div>
+      <nav class="tabs" id="tabs"></nav>
+
+      <!-- Resumen -->
+      <div class="tabpane" id="tab-resumen">
+        <div class="kpis" id="siteKpis"></div>
+        <div class="panel"><h2>🚨 Alarmas activas</h2><ul class="alarms" id="alarmList"></ul></div>
+        <div class="panel"><h2>Estado por zona</h2><div class="zone-grid" id="zoneOverview"></div></div>
+      </div>
+
+      <!-- Dispositivos -->
+      <div class="tabpane" id="tab-dispositivos" hidden>
+        <div class="panel" id="devFormPanel">
+          <h2>Registrar nuevo equipo</h2>
+          <form id="deviceForm" novalidate>
+            <div class="field"><label for="nombre">Nombre</label><input id="nombre" type="text" placeholder="Cámara Cocina" maxlength="40"></div>
+            <div class="field"><label for="ip">Dirección IP</label><input id="ip" type="text" placeholder="192.168.1.50"></div>
+            <div class="field"><label for="tipo">Tipo</label>
+              <select id="tipo"><option>Cámara IP</option><option>DVR</option><option>NVR</option><option>Router</option><option>Switch</option><option>TV</option></select></div>
+            <div class="field"><label for="zona">Zona</label><select id="zona"></select></div>
+            <div class="field"><label for="estado">Estado inicial</label>
+              <select id="estado"><option>Online</option><option>Warning</option><option>Offline</option><option>Mantenimiento</option></select></div>
+            <div class="field"><label for="disco">Uso de disco % (DVR/NVR)</label><input id="disco" type="number" min="0" max="100" placeholder="0 - 100"></div>
+            <div class="field field-btn"><button type="submit" class="btn btn-primary">Agregar a la red</button></div>
+            <p class="form-msg" id="formMsg" role="alert"></p>
+          </form>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>Dispositivos de red</h2></div>
+          <div class="toolbar">
+            <input type="search" id="filtro" placeholder="Filtrar por nombre, IP, tipo o zona...">
+            <select id="devEstado" class="select-auto">
+              <option value="todos">Todos los estados</option><option value="Online">Online</option><option value="Offline">Offline</option>
+              <option value="Warning">Warning</option><option value="Mantenimiento">Mantenimiento</option><option value="critico">💽 Disco crítico</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Equipo</th><th>IP</th><th>Tipo</th><th>Zona</th><th>Estado</th><th>Disco</th><th>Latencia</th><th>Acciones</th></tr></thead>
+              <tbody id="deviceBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zonas -->
+      <div class="tabpane" id="tab-zonas" hidden>
+        <div class="panel" id="zoneFormPanel">
+          <h2>Agregar zona / grupo de dispositivos</h2>
+          <form id="zoneForm" class="inline-form" novalidate>
+            <input id="zNombre" type="text" list="zSug" maxlength="30" placeholder="Ej: Cuarto 3, Cocina, Oficina Gerencia...">
+            <datalist id="zSug"></datalist>
+            <button type="submit" class="btn btn-primary">+ Agregar zona</button>
+          </form>
+          <p class="form-msg" id="zoneMsg" role="alert"></p>
+        </div>
+        <div class="zone-grid" id="zoneList"></div>
+      </div>
+
+      <!-- En vivo -->
+      <div class="tabpane" id="tab-vivo" hidden>
+        <div class="panel">
+          <div class="panel-head"><h2><i class="pdot bad"></i> Cámaras y DVR/NVR en vivo</h2><select id="liveZona" class="select-auto"></select></div>
+          <div class="live-grid" id="liveGrid"></div>
+          <p class="muted small">Vista de demostración: señales simuladas. Para video real asigne <code>streamUrl</code> al dispositivo (ver notas).</p>
+        </div>
+      </div>
+
+      <!-- Grabaciones -->
+      <div class="tabpane" id="tab-grabaciones" hidden>
+        <div class="panel">
+          <div class="panel-head"><h2>🎞️ Grabaciones guardadas</h2>
+            <div class="toolbar-inline">
+              <select id="recZona" class="select-auto"></select>
+              <select id="recTipo" class="select-auto"><option value="all">Todos los tipos</option><option>Movimiento</option><option>Continua</option><option>Alarma</option></select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Equipo</th><th>Zona</th><th>Fecha y hora</th><th>Duración</th><th>Tipo</th><th>Tamaño</th><th></th></tr></thead>
+              <tbody id="recBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLA -->
+      <div class="tabpane" id="tab-sla" hidden>
+        <div class="kpis" id="slaKpis"></div>
+        <div class="panel"><h2>📈 Disponibilidad promedio del sitio (últimas 24 h)</h2><div id="slaChart"></div></div>
+        <div class="panel"><h2>Estabilidad por equipo (cada barra = 1 hora)</h2><div class="sla-grid" id="slaGrid"></div>
+          <p class="muted small">Histórico simulado. En producción se alimenta de los pings/SNMP guardados por el backend.</p></div>
+      </div>
+
+      <!-- Terminal IA -->
+      <div class="tabpane" id="tab-terminal" hidden>
+        <div class="term">
+          <div class="term-bar"><i class="td r"></i><i class="td a"></i><i class="td g"></i><span>ns-ai@sentry — Terminal del agente IA</span>
+            <div class="term-btns">
+              <button class="btn btn-primary btn-sm" id="btnFix" data-act="fix">▶ Ejecutar Script de Autocorrección</button>
+              <button class="btn btn-outline btn-sm" data-act="scan">⟳ Escanear</button>
+              <button class="btn btn-outline btn-sm" data-act="clear">Limpiar</button>
+            </div>
+          </div>
+          <div class="term-body" id="termBody"></div>
+          <form class="term-in" id="termForm" autocomplete="off"><span>ns-ai@sentry:~$</span><input id="termInput" type="text" placeholder="help · status · alerts · ping &lt;ip&gt; · diag &lt;ip&gt; · fix" spellcheck="false"></form>
+        </div>
+        <div class="panel"><h2>🤖 Logs del agente IA</h2><ul class="logs" id="logList"></ul></div>
+      </div>
+
+      <!-- Incidencias -->
+      <div class="tabpane" id="tab-incidencias" hidden>
+        <div class="panel">
+          <h2>Documentar incidencia</h2>
+          <form id="incForm" class="form-grid" novalidate>
+            <div class="field"><label for="incDev">Equipo afectado</label><select id="incDev"></select></div>
+            <div class="field"><label for="incEstado">Estado de la incidencia</label><select id="incEstado"><option>Abierta</option><option>Resuelta</option></select></div>
+            <div class="field full"><label for="incTitulo">Título</label><input id="incTitulo" type="text" maxlength="80" placeholder="Ej: Puerto PoE caído en switch"></div>
+            <div class="field full"><label for="incDesc">Descripción / acciones realizadas</label><textarea id="incDesc" rows="3" maxlength="400" placeholder="Describa el problema y la solución aplicada (mín. 10 caracteres)"></textarea></div>
+            <div class="field"><button type="submit" class="btn btn-primary">Guardar incidencia</button></div>
+            <p class="form-msg" id="incMsg" role="alert"></p>
+          </form>
+        </div>
+        <div class="panel"><h2>Historial de incidencias</h2><div class="inc-list" id="incList"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERFIL ============ -->
+  <section id="viewPerfil" class="view" hidden>
+    <div class="container">
+      <div class="panel prof">
+        <div class="banner" id="pBanner"></div>
+        <div class="prof-head">
+          <div class="avatar lg" id="pAvatar"></div>
+          <div class="prof-id"><h2 id="pHeadName"></h2><p class="muted" id="pHeadMeta"></p></div>
+          <div class="prof-btns">
+            <label class="btn btn-outline btn-sm">📷 Cambiar foto<input type="file" id="fileAvatar" accept="image/png,image/jpeg,image/webp" hidden></label>
+            <label class="btn btn-outline btn-sm">🖼️ Cambiar banner<input type="file" id="fileBanner" accept="image/png,image/jpeg,image/webp" hidden></label>
+            <button class="btn btn-danger btn-sm" data-act="quitarfoto">Quitar foto</button>
+            <button class="btn btn-danger btn-sm" data-act="quitarbanner">Quitar banner</button>
+          </div>
+        </div>
+      </div>
+
+      <form class="panel" id="profileForm" novalidate>
+        <h2>Datos de cuenta y personales</h2>
+        <div class="form-grid">
+          <div class="field"><label for="pUsuario">Usuario <small>(4-12, letras/números)</small></label><input id="pUsuario" maxlength="12"></div>
+          <div class="field"><label for="pRol">Rol</label><input id="pRol" disabled></div>
+          <div class="field"><label for="pNombre">Nombre completo</label><input id="pNombre" maxlength="60"></div>
+          <div class="field"><label for="pEmail">Correo</label><input id="pEmail" type="email" maxlength="80"></div>
+          <div class="field"><label for="pTel">Teléfono</label><input id="pTel" maxlength="20" placeholder="+1 305 555 0101"></div>
+          <div class="field"><label for="pCargo">Cargo</label><input id="pCargo" maxlength="50"></div>
+          <div class="field"><label for="pEmpresa">Empresa / organización</label><input id="pEmpresa" maxlength="60"></div>
+          <div class="field"><label for="pCiudad">Ciudad</label><input id="pCiudad" maxlength="60"></div>
+          <div class="field full"><label for="pBio">Biografía <small>(máx. 200)</small></label><textarea id="pBio" rows="3" maxlength="200"></textarea></div>
+        </div>
+        <h2 style="margin-top:22px">Redes sociales y contacto</h2>
+        <div class="form-grid">
+          <div class="field"><label for="socTelegram">Telegram</label><input id="socTelegram" placeholder="@usuario" maxlength="33"></div>
+          <div class="field"><label for="socInstagram">Instagram</label><input id="socInstagram" placeholder="@usuario" maxlength="33"></div>
+          <div class="field"><label for="socWhatsapp">WhatsApp</label><input id="socWhatsapp" placeholder="+1 305 555 0101" maxlength="20"></div>
+          <div class="field"><label for="socLinkedin">LinkedIn (URL)</label><input id="socLinkedin" placeholder="https://linkedin.com/in/..." maxlength="120"></div>
+          <div class="field"><label for="socFacebook">Facebook (URL)</label><input id="socFacebook" placeholder="https://facebook.com/..." maxlength="120"></div>
+          <div class="field"><label for="socWeb">Sitio web (URL)</label><input id="socWeb" placeholder="https://..." maxlength="120"></div>
+        </div>
+        <div class="form-actions"><button type="submit" class="btn btn-primary">Guardar cambios</button></div>
+        <p class="form-msg" id="profMsg" role="alert"></p>
+      </form>
+
+      <form class="panel" id="pwForm" novalidate>
+        <h2>🔑 Cambiar contraseña</h2>
+        <div class="form-grid">
+          <div class="field"><label for="pwActual">Contraseña actual</label><input id="pwActual" type="password" maxlength="16" autocomplete="current-password"></div>
+          <div class="field"><label for="pwNueva">Nueva <small>(8-16, letras y números)</small></label><input id="pwNueva" type="password" maxlength="16" autocomplete="new-password"></div>
+          <div class="field"><label for="pwConfirm">Confirmar nueva</label><input id="pwConfirm" type="password" maxlength="16" autocomplete="new-password"></div>
+        </div>
+        <div class="form-actions"><button type="submit" class="btn btn-primary">Actualizar contraseña</button></div>
+        <p class="form-msg" id="pwMsg" role="alert"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ ADMINISTRACIÓN ============ -->
+  <section id="viewAdmin" class="view" hidden>
+    <div class="container">
+      <div class="section-head"><div><p class="tag">// Solo Super Admin</p><h2>Administración del sistema</h2></div></div>
+      <nav class="tabs">
+        <button data-atab="usuarios">👥 Usuarios</button>
+        <button data-atab="alertas">📨 Canales de alerta</button>
+        <button data-atab="reglas">⚙️ Reglas de automatización</button>
+        <button data-atab="auditoria">🧾 Auditoría</button>
+      </nav>
+
+      <div class="apane" id="adm-usuarios">
+        <div class="panel">
+          <h2>Crear usuario</h2>
+          <form id="userForm" class="form-grid" novalidate>
+            <div class="field"><label for="uUsuario">Usuario</label><input id="uUsuario" maxlength="12"></div>
+            <div class="field"><label for="uNombre">Nombre completo</label><input id="uNombre" maxlength="60"></div>
+            <div class="field"><label for="uPass">Contraseña inicial</label><input id="uPass" type="password" maxlength="16" autocomplete="new-password"></div>
+            <div class="field"><label for="uRol">Rol</label>
+              <select id="uRol"><option value="cliente">Cliente / Visualizador</option><option value="operador">Técnico SOC (Operador)</option><option value="admin">Super Admin</option></select></div>
+            <div class="field full" id="uSitiosWrap"><label>Sitios asignados al cliente</label><div class="checks" id="uSitios"></div></div>
+            <div class="field"><button class="btn btn-primary" type="submit">+ Crear usuario</button></div>
+            <p class="form-msg" id="userMsg" role="alert"></p>
+          </form>
+        </div>
+        <div class="panel"><h2>Usuarios registrados</h2>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Usuario</th><th>Nombre</th><th>Rol</th><th>Sitios</th><th>Último acceso</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <tbody id="userBody"></tbody></table></div>
+        </div>
+      </div>
+
+      <div class="apane" id="adm-alertas" hidden>
+        <form class="panel" id="chForm" novalidate>
+          <h2>Canales de alerta y parámetros globales</h2>
+          <div class="form-grid">
+            <label class="check full"><input type="checkbox" id="chTgActivo"> Activar alertas por Telegram</label>
+            <div class="field"><label for="chTgChat">Chat ID de Telegram</label><input id="chTgChat" placeholder="-1001234567890" maxlength="16"></div>
+            <div class="field"><button type="button" class="btn btn-outline" data-act="testcanal" data-canal="telegram">Enviar prueba</button></div>
+            <label class="check full"><input type="checkbox" id="chMailActivo"> Activar alertas por correo</label>
+            <div class="field"><label for="chMailDest">Correo destino</label><input id="chMailDest" type="email" placeholder="alertas@empresa.com" maxlength="80"></div>
+            <div class="field"><button type="button" class="btn btn-outline" data-act="testcanal" data-canal="correo">Enviar prueba</button></div>
+            <div class="field"><label for="chUmbral">Umbral crítico de disco % (50-99)</label><input id="chUmbral" type="number" min="50" max="99"></div>
+          </div>
+          <div class="form-actions"><button type="submit" class="btn btn-primary">Guardar configuración</button></div>
+          <p class="form-msg" id="chMsg" role="alert"></p>
+        </form>
+      </div>
+
+      <div class="apane" id="adm-reglas" hidden>
+        <div class="panel"><h2>Reglas de automatización</h2><div class="rules" id="ruleList"></div></div>
+      </div>
+
+      <div class="apane" id="adm-auditoria" hidden>
+        <div class="panel"><h2>Registro de auditoría (últimos 200 eventos)</h2>
+          <div class="table-wrap"><table><thead><tr><th>Fecha</th><th>Usuario</th><th>Rol</th><th>Acción</th></tr></thead><tbody id="audBody"></tbody></table></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">NetworkSentry AI · Proyecto académico · © 2026</footer>
+
+  <!-- Modal: nuevo sitio -->
+  <div class="modal" id="siteModal" hidden>
+    <form class="modal-box" id="siteForm" novalidate>
+      <h3>Registrar nuevo sitio</h3>
+      <label for="sNombre">Nombre del sitio</label><input id="sNombre" type="text" maxlength="40" placeholder="Residencia Los Pinos">
+      <label for="sTipo">Tipo de sitio</label><select id="sTipo"><option>Casa</option><option>Empresa</option><option>Negocio</option></select>
+      <label for="sDir">Dirección / ciudad</label><input id="sDir" type="text" maxlength="80" placeholder="Av. Principal #12, Miami">
+      <label class="check"><input type="checkbox" id="sPlantilla" checked> Crear zonas predeterminadas según el tipo</label>
+      <p class="form-msg" id="siteMsg" role="alert"></p>
+      <div class="modal-actions"><button type="button" class="btn btn-outline" data-close="siteModal">Cancelar</button><button type="submit" class="btn btn-primary">Crear sitio</button></div>
+    </form>
+  </div>
+
+  <!-- Modal: editar dispositivo -->
+  <div class="modal" id="editModal" hidden>
+    <form class="modal-box" id="editForm" novalidate>
+      <h3>Editar equipo</h3>
+      <input type="hidden" id="eId">
+      <label for="eNombre">Nombre</label><input id="eNombre" maxlength="40">
+      <label for="eIp">Dirección IP</label><input id="eIp">
+      <label for="eTipo">Tipo</label><select id="eTipo"><option>Cámara IP</option><option>DVR</option><option>NVR</option><option>Router</option><option>Switch</option><option>TV</option></select>
+      <label for="eZona">Zona</label><select id="eZona"></select>
+      <label for="eDisco">Uso de disco % (DVR/NVR)</label><input id="eDisco" type="number" min="0" max="100">
+      <p class="form-msg" id="editMsg" role="alert"></p>
+      <div class="modal-actions"><button type="button" class="btn btn-outline" data-close="editModal">Cancelar</button><button type="submit" class="btn btn-primary">Guardar</button></div>
+    </form>
+  </div>
+
+  <!-- Modal: acciones rápidas del sitio -->
+  <div class="modal" id="quickModal" hidden><div class="modal-box wide" id="quickBody"></div></div>
+
+  <!-- Modal: reproductor de grabaciones -->
+  <div class="modal" id="playModal" hidden>
+    <div class="modal-box wide">
+      <div class="quick-head"><div><h3 id="playTitle"></h3><p class="muted small" id="playMeta"></p></div><button class="btn btn-outline btn-sm" data-close="playModal">✕</button></div>
+      <canvas id="playCanvas" class="feed" width="640" height="360"></canvas>
+      <div class="player">
+        <button class="btn btn-primary btn-sm" id="playBtn" type="button">⏸</button>
+        <input type="range" id="playRange" min="0" max="100" value="0" step="1">
+        <span id="playTime">00:00 / 00:00</span>
+        <select id="playSpeed" class="select-auto"><option value="1">1x</option><option value="2">2x</option><option value="4">4x</option></select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: login con dos portales -->
+  <div class="modal" id="loginModal" hidden>
+    <form class="modal-box" id="loginForm" novalidate>
+      <h3>🔐 Acceso seguro</h3>
+      <div class="seg" id="portalSeg">
+        <button type="button" data-portal="cliente" class="active">👤 Cliente</button>
+        <button type="button" data-portal="personal">🛡️ Personal / Admin</button>
+      </div>
+      <p class="hint" id="portalHint"></p>
+      <label for="user">Usuario <small>(4-12 caracteres, letras/números)</small></label>
+      <input id="user" type="text" maxlength="12" autocomplete="username">
+      <label for="pass">Contraseña <small>(8-16 caracteres)</small></label>
+      <input id="pass" type="password" maxlength="16" autocomplete="current-password">
+      <label class="check"><input type="checkbox" id="showPass"> Mostrar contraseña</label>
+      <p class="form-msg" id="loginMsg" role="alert"></p>
+      <div class="modal-actions"><button type="button" class="btn btn-outline" data-close="loginModal">Cancelar</button><button type="submit" class="btn btn-primary">Ingresar</button></div>
+      <details class="demo"><summary>Cuentas de demostración</summary>
+        <p><b>Cliente:</b> cliente1 / Cliente#2026 · cliente2 / Empresa#2026<br><b>Personal:</b> admin / Sentry#2026 (Super Admin) · tecnico1 / Soc#Tecnico26 (Técnico SOC)</p></details>
+    </form>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
